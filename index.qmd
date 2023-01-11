@@ -9,6 +9,6 @@ output:
 
 ### I'm happy you stopped by!
 
-Welcome to **MADA** website and portfolio.
+Welcome to my **modern applied data analysis** website and portfolio.
 
 Please visit my About Me to learn more about... me!

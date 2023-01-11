@@ -7,6 +7,6 @@ output:
 
 # 
 
-### I'm happy you stopped by. 
+### I'm happy you stopped by.
 
-Welcome to Kelly Hatfield's **modern applied data analysis** website and portfolio. Please visit my About Me to learn more about... me!
+Welcome to Kelly Hatfield's **modern applied data analysis** website and portfolio. Please visit my About Me to learn more about... me!!

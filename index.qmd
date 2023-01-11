@@ -1,16 +1,14 @@
 ---
-title: "My website and data analysis portfolio"
+title: "Kelly Hatfield's website and portfolio"
 output: 
   html_document:
     toc: FALSE
 ---
 
-# Hello
+# Well, Hello.
 
-### And hello again
+### I'm happy you stopped by!
 
-Welcome to **my website** and _data analysis portfolio._ 
+Welcome to **MADA** website and portfolio.
 
-
-* Please use the `Menu Bar` above to look around.
-* Have fun!
+Please visit my About Me to learn more about... me!

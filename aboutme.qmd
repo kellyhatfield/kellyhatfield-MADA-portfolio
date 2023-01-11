@@ -5,4 +5,22 @@ output:
       toc: FALSE
 ---
 
-Add some text and a figure describing myself.
+# **Hi, I'm Kelly** 👋
+
+![](IMG_5702.JPG){fig-align="center" width="125"}
+
+## Who am I?
+
+I am a 3rd year DrPH student in the College of Public Health. I have a MSPH in Biostatistics from Emory University and a BS in Microbiology from Clemson University. Go Tigers!
+
+## Research and Work Experience
+
+I currently work as an analytic research epidemiologist in the Division of Healthcare Quality Promotion at CDC. My work centers around analyzing various types of electronic healthcare data to answer important questions about healthcare epidemiology with a specific focus on healthcare-associated infections and antimicrobial resistance.
+
+Some exciting projects I have historically worked on include coming up with burden estimates for CDC's [*Antibiotic Resistance Threats in the United States, 2019*](https://www.cdc.gov/drugresistance/pdf/threats-report/2019-ar-threats-report-508.pdf) where my team was responsible for calculating burden estimates, attributable cost, and attributable mortality for [Multidrug-Resistant Bacterial Infections in U.S. Hospitalized Patients, 2012--2017.](https://www.nejm.org/doi/full/10.1056/NEJMoa1914433)
+
+Most recently, I have a special interest in other non-acute care settings, particularly nursing homes. This was sparked by some of my experiences throughout the COVID-19 pandemic including an early investigation identifying the [importance of asymptomatic and presymptomatic infections in SARS-CoV-2 transmission](https://www.nejm.org/doi/full/10.1056/nejmoa2008457) and more recent work estimating [vaccine effectiveness in this population](https://academic.oup.com/cid/article/75/Supplement_2/S147/6646955).
+
+## What am I doing here?
+
+I was formally trained in SAS and am a devotee of many years, but I am here in a hope to modernize and expand my knowledge. I am really looking forward to learning R and becoming somewhat comfortable with Git throughout this class. I am hoping to learn some new tricks that I can use during my dissertation and beyond.

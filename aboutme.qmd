@@ -11,7 +11,7 @@ output:
 
 ## Who am I?
 
-I am a 3rd year DrPH student in the College of Public Health. I have a MSPH in Biostatistics from Emory University and a BS in Microbiology from Clemson University. Go Tigers!
+I am a 3rd year DrPH student in the College of Public Health. I have a MSPH in Biostatistics from Emory University and a BS in Microbiology from Clemson University. 
 
 ## Research and Work Experience
 

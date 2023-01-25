@@ -101,3 +101,119 @@ summary(fit2)
 ## Conclusions
 
 We determined that in a simple linear regression that increased life expectancy is associated with linear trend in decreased infant mortality for African countries in the year 2000. However, population size does not appear to have a linear relationship with life expectancy.
+
+# AK Edits
+
+This section is added by Abbie Klinker to expand on Kelly's findings.
+
+I am interested at looking at infant mortality as it relates to fertility and population. The fertility measure is the number of children per woman. Infant mortality is recorded as the number of children <1yr old dead per 1000 live births. 
+
+I would predict that infant mortality is inversely related to fertility and population, while fertility and population are positively related to one another. This would mean that countries with higher rates of infant mortality have lower number of babies per woman and therefore a lower population. If this is proved untrue, then that would raise questions about access to resources like healthcare and quality of life.
+
+## Preparing the Data
+
+First I'm going to see if all the data for these variables is still available for year 2000.
+
+```{r}
+library(tidyverse)
+africadata%>%
+  filter(year ==2000, 
+         is.na(fertility)) #no data is missing for fertility in 2000, so we can still use this data.
+
+head(africadata_2000)#Kelly's created Africa 2000 data
+```
+
+Since they are, I want to first look at how fertility may affect population.
+
+## Fertility vs. Population
+
+```{r}
+ggplot()+
+  geom_smooth(aes(y=log(population), x=fertility), data=africadata_2000, alpha = 0.1)+
+  geom_point(aes(y=log(population), x=fertility), data=africadata_2000)+
+  theme_bw()
+
+```
+
+There doesn't seem to be much of a correlation for fertility versus population, at least using logs. I'll double-check this quantitatively as well.
+
+### Regression Fertility vs Population
+
+```{r}
+fit3 = lm(population~fertility, data=africadata_2000)
+summary(fit3)
+
+```
+
+Based on this regression model, as supported by the plot above, we don't have evidence to support the associated between fertility alone and population. This is a bit surprising to me, because I would think that as the number of children per woman increased, so would the population.
+
+Now I want to look at infant mortality as a determinant of population.
+
+## Infant Mortality vs Population.
+
+```{r}
+ggplot()+
+  geom_smooth(aes(y=log(population), x=infant_mortality), data=africadata_2000, alpha = 0.1)+
+  geom_point(aes(y=log(population), x=infant_mortality), data=africadata_2000)+
+  theme_bw()
+
+```
+
+There also doesn't seem to be much of a correlation for infant mortality versus population.
+
+### Regression Infant Mortality vs Population
+
+```{r}
+fit4 = lm(population~infant_mortality, data=africadata_2000)
+summary(fit4)
+
+```
+
+And this is supported with the regression model as well. This is also surprising as I would guess that a country with higher rates of infant mortality would have a more stagnant population, while countries with lower rates would have a growing population.
+
+## Combined Variable Interactions
+
+However, I want to see if infant mortality and fertility have an interaction, which together may impact the population.
+
+### Infant Mortality vs Fertility
+
+```{r}
+ggplot()+
+  geom_smooth(aes(x=infant_mortality, y=fertility), data=africadata_2000, alpha = 0.1)+
+  geom_point(aes(x=infant_mortality, y=fertility), data=africadata_2000)+
+  theme_bw()
+```
+
+It seems like there is a relationship here where they have a positive correlation, rather than the negative one which I had previously assumed. As the [Gapminder documentation](https://www.gapminder.org/tag/fertility-rate/) describes, this may be an indication of "many children and short lives."
+
+```{r}
+fit5<-lm(fertility~infant_mortality, data=africadata_2000)
+summary(fit5)
+```
+
+### Combined Effect on Population
+```{r}
+fit6<-lm(population~infant_mortality*fertility, data=africadata_2000)
+summary(fit6)
+```
+
+The combined effect still does not have an association with population, nor is the interaction between the two variables significant. Since they are correlated, this may be a case of multicolinearity, which I will double check just to be sure: 
+
+```{r}
+library(car)
+vif(fit6)
+```
+The standard cutoff for VIF use is 10, so since the interaction between infant mortality and fertility is a whopping 34, we can assume this is a redundant term and should not be used in a model. 
+
+### Remove the Interaction
+```{r}
+fit62<-lm(population~infant_mortality+fertility, data=africadata_2000)
+summary(fit62)
+vif(fit62)
+```
+
+Now that we've removed the interaction, while the model still does not show any significant associations between population, infant mortality, and fertility, we can be confident in our answers and the validity of the model. 
+
+## Conclusions
+
+Based on this analysis, we can conclude that neither infant mortality or the number of children per woman influence a country's population. However, countries with higher rates of infant mortality also have more children per woman. Based on this data, for every child dead per 1000 live births, the average woman is likely to have 0.04 more children. This is not a very interpretable number. When translated, this can also mean that when the infant mortality rate reaches 1 in 40 live births (0.025%), the average woman will have 1 child. While this may seem insanely high, based on the data, 16 countries have infant mortality rates over 100, or 1 death per in 10 births, and in these countries the average number of children per woman is over 6, and we see this average drop to around 4 in the countries with lower infant mortality rates. This is an indication of lack of access to resources like reproductive healthcare, education, and necessities like food and water.

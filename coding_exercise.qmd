@@ -106,7 +106,7 @@ We determined that in a simple linear regression that increased life expectancy 
 
 This section is added by Abbie Klinker to expand on Kelly's findings.
 
-I am interested at looking at infant mortality as it relates to fertility and population. The fertility measure is the number of children per woman. Infant mortality is recorded as the number of children <1yr old dead per 1000 live births. 
+I am interested at looking at infant mortality as it relates to fertility and population. The fertility measure is the number of children per woman. Infant mortality is recorded as the number of children \<1yr old dead per 1000 live births.
 
 I would predict that infant mortality is inversely related to fertility and population, while fertility and population are positively related to one another. This would mean that countries with higher rates of infant mortality have lower number of babies per woman and therefore a lower population. If this is proved untrue, then that would raise questions about access to resources like healthcare and quality of life.
 
@@ -192,28 +192,35 @@ summary(fit5)
 ```
 
 ### Combined Effect on Population
+
 ```{r}
 fit6<-lm(population~infant_mortality*fertility, data=africadata_2000)
 summary(fit6)
 ```
 
-The combined effect still does not have an association with population, nor is the interaction between the two variables significant. Since they are correlated, this may be a case of multicolinearity, which I will double check just to be sure: 
+The combined effect still does not have an association with population, nor is the interaction between the two variables significant. Since they are correlated, this may be a case of multicolinearity, which I will double check just to be sure:
 
 ```{r}
 library(car)
 vif(fit6)
 ```
-The standard cutoff for VIF use is 10, so since the interaction between infant mortality and fertility is a whopping 34, we can assume this is a redundant term and should not be used in a model. 
+
+The standard cutoff for VIF use is 10, so since the interaction between infant mortality and fertility is a whopping 34, we can assume this is a redundant term and should not be used in a model.
 
 ### Remove the Interaction
+
 ```{r}
 fit62<-lm(population~infant_mortality+fertility, data=africadata_2000)
 summary(fit62)
 vif(fit62)
 ```
 
-Now that we've removed the interaction, while the model still does not show any significant associations between population, infant mortality, and fertility, we can be confident in our answers and the validity of the model. 
+Now that we've removed the interaction, while the model still does not show any significant associations between population, infant mortality, and fertility, we can be confident in our answers and the validity of the model.
 
 ## Conclusions
 
 Based on this analysis, we can conclude that neither infant mortality or the number of children per woman influence a country's population. However, countries with higher rates of infant mortality also have more children per woman. Based on this data, for every child dead per 1000 live births, the average woman is likely to have 0.04 more children. This is not a very interpretable number. When translated, this can also mean that when the infant mortality rate reaches 1 in 40 live births (0.025%), the average woman will have 1 child. While this may seem insanely high, based on the data, 16 countries have infant mortality rates over 100, or 1 death per in 10 births, and in these countries the average number of children per woman is over 6, and we see this average drop to around 4 in the countries with lower infant mortality rates. This is an indication of lack of access to resources like reproductive healthcare, education, and necessities like food and water.
+
+## Thanks
+
+Thanks to Abbie Klinker for her awesome additional analyses!

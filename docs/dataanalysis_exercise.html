@@ -209,11 +209,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="mugsi-data" class="level1">
 <h1>MUGSI Data</h1>
-<p>&lt;a title=“Explore CDC’s HAIC Viz” href=“https://www.cdc.gov/hai/eip/haicviz.html”&gt;&lt;img style=“width: 150px; height: 120px; border: 1px;” src=“http://www.cdc.gov/hai/eip/images/HAICViz-Button-150by120.jpg” alt=“Explore CDC’s HAIC Viz”&gt;&lt;/a&gt;</p>
 <p>We accessed this data from <a href="https://www.cdc.gov/hai/eip/haicviz.html">CDC HAIC Data Viz</a></p>
 <section id="multi-site-gram-negative-surveillance-initiative" class="level3">
 <h3 class="anchored" data-anchor-id="multi-site-gram-negative-surveillance-initiative">Multi-site Gram-negative Surveillance Initiative</h3>
-<p>IThe healthcare-associated infection component of CDC’s Emerging Infections Program engages a network of state health departments and their academic medical center partners to help answer critical questions about emerging threats, advanced infection tracking methods, and antibiotic resistance in the United States. Information gathered through this activity will play a key role in shaping future policies and recommendations targeting HAI prevention.</p>
+<p>The healthcare-associated infection component of CDC’s Emerging Infections Program engages a network of state health departments and their academic medical center partners to help answer critical questions about emerging threats, advanced infection tracking methods, and antibiotic resistance in the United States. Information gathered through this activity will play a key role in shaping future policies and recommendations targeting HAI prevention.</p>
 <p>&nbsp;Selected gram-negative bacteria are under surveillance, as they are becoming resistant to all or nearly all antibiotics, meaning that patients with infections from these bacteria might have few or no treatment options. Infections due to highly resistant bacteria, such as carbapenem-resistant Enterobacterales (CRE), carbapenem-resistant <em>Acinetobacter baumannii</em>&nbsp;(CRAB)are mainly associated with healthcare settings and have high death rates.</p>
 <p>We will explore longitudinal data from these pathogens on CDC’s website.</p>
 </section>
@@ -372,6 +371,12 @@ CRAB  CRE
 <div class="cell-output-display">
 <p><img src="dataanalysis_exercise_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
+</div>
+<p>Now I will save this into a R dataset for you to analyze!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Export</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(mugsi_tidy, <span class="at">file =</span> <span class="st">"Data_Exercise/Data/MUGSI_tidy.RData"</span>) <span class="co">#raw and clean data if needed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="you-are-up" class="level3">

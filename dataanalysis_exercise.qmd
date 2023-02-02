@@ -5,9 +5,8 @@ output:
     toc: FALSE
 ---
 
-# MUGSI Data 
+# MUGSI Data
 
-\<a title="Explore CDC's HAIC Viz" href="https://www.cdc.gov/hai/eip/haicviz.html"\>\<img style="width: 150px; height: 120px; border: 1px;" src="http://www.cdc.gov/hai/eip/images/HAICViz-Button-150by120.jpg" alt="Explore CDC's HAIC Viz"\>\</a\>
 
 We accessed this data from [CDC HAIC Data Viz](https://www.cdc.gov/hai/eip/haicviz.html)
 
@@ -96,6 +95,15 @@ ggplot(mugsi_plot1, aes(x=YearName, y=case_rates, color=patient_location, group=
 
 
 
+```
+
+Now I will save this into a R dataset for you to analyze!
+
+```{r}
+
+#Export
+
+save(mugsi_tidy, file = "Data_Exercise/Data/MUGSI_tidy.RData") #raw and clean data if needed
 ```
 
 ### You are up!

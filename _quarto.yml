@@ -24,7 +24,7 @@ website:
 
 format:
   html:
-    theme: journal
+    theme: Lumen
     highlight: zenburn
     css: styles.css
     toc: FALSE

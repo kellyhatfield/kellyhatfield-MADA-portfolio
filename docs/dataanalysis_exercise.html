@@ -207,8 +207,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>##MUGSI Data We accessed this MUGSI data from https://data.cdc.gov/Public-Health-Surveillance/HAICViz-MuGSI/v4tm-h8pe</p>
-<p>The healthcare-associated infection component of CDC’s EIP engages a network of state health departments and their academic medical center partners to help answer critical questions about emerging HAI threats, advanced infection tracking methods, and antibiotic resistance in the United States. Information gathered through this activity will play a key role in shaping future policies and recommendations targeting HAI prevention.</p>
+<section id="mugsi-data" class="level1">
+<h1>MUGSI Data</h1>
+<p>&lt;a title=“Explore CDC’s HAIC Viz” href=“https://www.cdc.gov/hai/eip/haicviz.html”&gt;&lt;img style=“width: 150px; height: 120px; border: 1px;” src=“http://www.cdc.gov/hai/eip/images/HAICViz-Button-150by120.jpg” alt=“Explore CDC’s HAIC Viz”&gt;&lt;/a&gt;</p>
+<p>We accessed this data from <a href="https://www.cdc.gov/hai/eip/haicviz.html">CDC HAIC Data Viz</a></p>
+<section id="multi-site-gram-negative-surveillance-initiative" class="level3">
+<h3 class="anchored" data-anchor-id="multi-site-gram-negative-surveillance-initiative">Multi-site Gram-negative Surveillance Initiative</h3>
+<p>IThe healthcare-associated infection component of CDC’s Emerging Infections Program engages a network of state health departments and their academic medical center partners to help answer critical questions about emerging threats, advanced infection tracking methods, and antibiotic resistance in the United States. Information gathered through this activity will play a key role in shaping future policies and recommendations targeting HAI prevention.</p>
+<p>&nbsp;Selected gram-negative bacteria are under surveillance, as they are becoming resistant to all or nearly all antibiotics, meaning that patients with infections from these bacteria might have few or no treatment options. Infections due to highly resistant bacteria, such as carbapenem-resistant Enterobacterales (CRE), carbapenem-resistant <em>Acinetobacter baumannii</em>&nbsp;(CRAB)are mainly associated with healthcare settings and have high death rates.</p>
+<p>We will explore longitudinal data from these pathogens on CDC’s website.</p>
+</section>
 <section id="r-code-for-loading-packages" class="level2">
 <h2 class="anchored" data-anchor-id="r-code-for-loading-packages">R Code for loading packages</h2>
 <div class="cell">
@@ -237,8 +245,26 @@ dbl (2): YearName, Value
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#get an overview of data structure</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mugsi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#view some data</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mugsi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 328 × 6
+   YearName Organism Topic      Viewby Series      Value
+      &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;       &lt;dbl&gt;
+ 1     2012 CRAB     Case Rates Age    19-49 years  1.06
+ 2     2013 CRAB     Case Rates Age    19-49 years  0.89
+ 3     2014 CRAB     Case Rates Age    19-49 years  0.53
+ 4     2015 CRAB     Case Rates Age    19-49 years  0.9 
+ 5     2016 CRAB     Case Rates Age    19-49 years  0.59
+ 6     2017 CRAB     Case Rates Age    19-49 years  0.38
+ 7     2018 CRAB     Case Rates Age    19-49 years  0.28
+ 8     2012 CRAB     Case Rates Age    50-64 years  1.87
+ 9     2013 CRAB     Case Rates Age    50-64 years  2.42
+10     2014 CRAB     Case Rates Age    50-64 years  2.13
+# … with 318 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#get an overview of data structure</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mugsi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>spc_tbl_ [328 × 6] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
  $ YearName: num [1:328] 2012 2013 2014 2015 2016 ...
@@ -258,8 +284,8 @@ dbl (2): YearName, Value
   .. )
  - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#get a summary of data</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mugsi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#get a summary of data</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mugsi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    YearName      Organism            Topic              Viewby         
  Min.   :2012   Length:328         Length:328         Length:328        
@@ -276,14 +302,14 @@ dbl (2): YearName, Value
                     3rd Qu.: 2.9600  
                     Max.   :65.2200  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#look at values for organism, topic, viewby, and series and </span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(mugsi<span class="sc">$</span>Organism)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#look at values for organism, topic, viewby, and series and </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(mugsi<span class="sc">$</span>Organism)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 CRAB  CRE 
  133  195 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(mugsi<span class="sc">$</span>Topic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(mugsi<span class="sc">$</span>Topic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  Case Rates Death Rates 
@@ -297,17 +323,17 @@ CRAB  CRE
 <p>However, the data are laid out in a funny shape for analysis. For this project we will subset the data to be laid out in a more Tidy manner.</p>
 <p>We will make columns year, organism, case rates, and death rates. There will be a row for each year, organism, and location combination.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mugsi_analysis0 <span class="ot">=</span> mugsi<span class="sc">%&gt;%</span> <span class="fu">filter</span>(Topic<span class="sc">==</span><span class="st">"Case Rates"</span>) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Viewby<span class="sc">==</span><span class="st">"Patient location"</span>) <span class="sc">%&gt;%</span><span class="fu">rename</span>(<span class="at">patient_location =</span> Series) <span class="sc">%&gt;%</span>  <span class="fu">rename</span>(<span class="at">case_rates =</span> Value)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>mugsi_analysis0a <span class="ot">&lt;-</span> mugsi_analysis0[,<span class="sc">!</span><span class="fu">names</span>(mugsi_analysis0) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Topic"</span>, <span class="st">"Viewby"</span>)]</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>mugsi_analysis1 <span class="ot">=</span> mugsi<span class="sc">%&gt;%</span> <span class="fu">filter</span>(Topic<span class="sc">==</span><span class="st">"Death Rates"</span>) <span class="sc">%&gt;%</span><span class="fu">rename</span>(<span class="at">patient_location =</span> Series) <span class="sc">%&gt;%</span>  <span class="fu">rename</span>(<span class="at">death_rates =</span> Value)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>mugsi_analysis1a <span class="ot">&lt;-</span> mugsi_analysis1[,<span class="sc">!</span><span class="fu">names</span>(mugsi_analysis1) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Topic"</span>, <span class="st">"Viewby"</span>)]</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>mugsi_tidy <span class="ot">&lt;-</span> <span class="fu">left_join</span>(mugsi_analysis0a, mugsi_analysis1a, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"YearName"</span>, <span class="st">"Organism"</span>, <span class="st">"patient_location"</span>))</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mugsi_tidy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>mugsi_analysis0 <span class="ot">=</span> mugsi<span class="sc">%&gt;%</span> <span class="fu">filter</span>(Topic<span class="sc">==</span><span class="st">"Case Rates"</span>) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Viewby<span class="sc">==</span><span class="st">"Patient location"</span>) <span class="sc">%&gt;%</span><span class="fu">rename</span>(<span class="at">patient_location =</span> Series) <span class="sc">%&gt;%</span>  <span class="fu">rename</span>(<span class="at">case_rates =</span> Value)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>mugsi_analysis0a <span class="ot">&lt;-</span> mugsi_analysis0[,<span class="sc">!</span><span class="fu">names</span>(mugsi_analysis0) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Topic"</span>, <span class="st">"Viewby"</span>)]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>mugsi_analysis1 <span class="ot">=</span> mugsi<span class="sc">%&gt;%</span> <span class="fu">filter</span>(Topic<span class="sc">==</span><span class="st">"Death Rates"</span>) <span class="sc">%&gt;%</span><span class="fu">rename</span>(<span class="at">patient_location =</span> Series) <span class="sc">%&gt;%</span>  <span class="fu">rename</span>(<span class="at">death_rates =</span> Value)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>mugsi_analysis1a <span class="ot">&lt;-</span> mugsi_analysis1[,<span class="sc">!</span><span class="fu">names</span>(mugsi_analysis1) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Topic"</span>, <span class="st">"Viewby"</span>)]</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>mugsi_tidy <span class="ot">&lt;-</span> <span class="fu">left_join</span>(mugsi_analysis0a, mugsi_analysis1a, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"YearName"</span>, <span class="st">"Organism"</span>, <span class="st">"patient_location"</span>))</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mugsi_tidy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 63 × 5
    YearName Organism patient_location case_rates death_rates
@@ -324,7 +350,7 @@ CRAB  CRE
 10     2014 CRAB     Community              0.27       NA   
 # … with 53 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(mugsi_tidy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(mugsi_tidy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="analysis-next-steps" class="level2">
@@ -340,9 +366,9 @@ CRAB  CRE
 <h3 class="anchored" data-anchor-id="kellys-analysis">Kelly’s Analysis</h3>
 <p>I am going to graph CRE rates over time by location.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mugsi_plot1 <span class="ot">&lt;-</span> <span class="fu">subset</span>(mugsi_tidy, Organism<span class="sc">==</span><span class="st">"CRE"</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mugsi_plot1, <span class="fu">aes</span>(<span class="at">x=</span>YearName, <span class="at">y=</span>case_rates, <span class="at">color=</span>patient_location, <span class="at">group=</span>patient_location)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span><span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Case Rates per 100,000 population"</span>, <span class="at">x=</span><span class="st">"Year"</span>, <span class="at">title =</span> <span class="st">"Annual CRE Rates by Patient Location"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mugsi_plot1 <span class="ot">&lt;-</span> <span class="fu">subset</span>(mugsi_tidy, Organism<span class="sc">==</span><span class="st">"CRE"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mugsi_plot1, <span class="fu">aes</span>(<span class="at">x=</span>YearName, <span class="at">y=</span>case_rates, <span class="at">color=</span>patient_location, <span class="at">group=</span>patient_location)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span><span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Case Rates per 100,000 population"</span>, <span class="at">x=</span><span class="st">"Year"</span>, <span class="at">title =</span> <span class="st">"Annual CRE Rates by Patient Location"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="dataanalysis_exercise_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -355,6 +381,7 @@ CRAB  CRE
 <p>Look to see if CRAB trends are similar to CRE trends in specific settings.</p>
 
 
+</section>
 </section>
 </section>
 

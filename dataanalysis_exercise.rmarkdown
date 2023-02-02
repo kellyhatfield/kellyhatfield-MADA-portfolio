@@ -5,6 +5,7 @@ output:
     toc: FALSE
 ---
 
+
 # MUGSI Data 
 
 \<a title="Explore CDC's HAIC Viz" href="https://www.cdc.gov/hai/eip/haicviz.html"\>\<img style="width: 150px; height: 120px; border: 1px;" src="http://www.cdc.gov/hai/eip/images/HAICViz-Button-150by120.jpg" alt="Explore CDC's HAIC Viz"\>\</a\>
@@ -20,6 +21,7 @@ The healthcare-associated infection component of CDC's Emerging Infections Progr
 We will explore longitudinal data from these pathogens on CDC's website.
 
 ## R Code for loading packages
+
 
 ```{r}
 
@@ -46,6 +48,7 @@ table(mugsi$Topic)
 
 ```
 
+
 ## Analytic Goals
 
 The objective of this analysis will be to view the number of CRE cases by year and patient location. We will first subset the data to only include that information.
@@ -53,6 +56,7 @@ The objective of this analysis will be to view the number of CRE cases by year a
 However, the data are laid out in a funny shape for analysis. For this project we will subset the data to be laid out in a more Tidy manner.
 
 We will make columns year, organism, case rates, and death rates. There will be a row for each year, organism, and location combination.
+
 
 ```{r}
 
@@ -71,6 +75,7 @@ print(mugsi_tidy)
 view(mugsi_tidy)
 ```
 
+
 ## Analysis Next Steps
 
 In order to plot the number of CRE cases by patient location over time you will need the following variables:
@@ -87,6 +92,7 @@ Death rates are only available for "All cases" (not stratified by patient locati
 
 I am going to graph CRE rates over time by location.
 
+
 ```{r}
 
 mugsi_plot1 <- subset(mugsi_tidy, Organism=="CRE")
@@ -98,6 +104,7 @@ ggplot(mugsi_plot1, aes(x=YearName, y=case_rates, color=patient_location, group=
 
 ```
 
+
 ### You are up!
 
 Some potential analytic ideas:
@@ -105,3 +112,4 @@ Some potential analytic ideas:
 Look at trends in case rates and death rates for each year for each pathogen group.
 
 Look to see if CRAB trends are similar to CRE trends in specific settings.
+

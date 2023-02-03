@@ -384,6 +384,62 @@ CRAB  CRE
 <p>Some potential analytic ideas:</p>
 <p>Look at trends in case rates and death rates for each year for each pathogen group.</p>
 <p>Look to see if CRAB trends are similar to CRE trends in specific settings.</p>
+</section>
+<section id="this-section-is-added-by-christian-okitondo" class="level3">
+<h3 class="anchored" data-anchor-id="this-section-is-added-by-christian-okitondo">This section is added by Christian Okitondo</h3>
+</section>
+<section id="loading-the-rdata-file-of-the-cleaned-data" class="level3">
+<h3 class="anchored" data-anchor-id="loading-the-rdata-file-of-the-cleaned-data">Loading the RData file of the cleaned data</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Path to data. Note the use of the here() package and not absolute paths</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"Data_Exercise"</span>,<span class="st">"Data"</span>,<span class="st">"MUGSI_tidy.RData"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="checking-to-see-if-data-frames-show-up-as-in-the-workspace" class="level3">
+<h3 class="anchored" data-anchor-id="checking-to-see-if-data-frames-show-up-as-in-the-workspace">Checking to see if data frames show up as in the workspace</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "mugsi"            "mugsi_analysis0"  "mugsi_analysis0a" "mugsi_analysis1" 
+[5] "mugsi_analysis1a" "mugsi_plot1"      "mugsi_tidy"      </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get a glimpse of data</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(mugsi_tidy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 63
+Columns: 5
+$ YearName         &lt;dbl&gt; 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2012, 2013,…
+$ Organism         &lt;chr&gt; "CRAB", "CRAB", "CRAB", "CRAB", "CRAB", "CRAB", "CRAB…
+$ patient_location &lt;chr&gt; "All cases", "All cases", "All cases", "All cases", "…
+$ case_rates       &lt;dbl&gt; 1.58, 1.39, 1.04, 1.10, 0.76, 0.80, 0.53, 0.32, 0.32,…
+$ death_rates      &lt;dbl&gt; 0.32, 0.22, 0.20, 0.16, 0.07, 0.18, 0.08, NA, NA, NA,…</code></pre>
+</div>
+</div>
+</section>
+<section id="trends-of-crab-rates-over-time-by-patient-location" class="level3">
+<h3 class="anchored" data-anchor-id="trends-of-crab-rates-over-time-by-patient-location">Trends of CRAB rates over time by patient location</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>mugsi_crab <span class="ot">&lt;-</span> <span class="fu">subset</span>(mugsi_tidy, Organism<span class="sc">==</span><span class="st">"CRAB"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mugsi_crab, <span class="fu">aes</span>(<span class="at">x=</span>YearName, <span class="at">y=</span>case_rates, <span class="at">color=</span>patient_location, <span class="at">group=</span>patient_location)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span><span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Case Rates per 100,000 population"</span>, <span class="at">x=</span><span class="st">"Year"</span>, <span class="at">title =</span> <span class="st">"Annual CRAB Rates by Patient Location"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="dataanalysis_exercise_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="trends-of-the-cre-and-crab-rates-by-all-cases-sum-of-the-four-subset-patient-locations" class="level3">
+<h3 class="anchored" data-anchor-id="trends-of-the-cre-and-crab-rates-by-all-cases-sum-of-the-four-subset-patient-locations">Trends of the CRE and CRAB rates by all cases (sum of the four subset patient locations)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a subset of the data indicating patient location is all cases.</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>mugsi_location <span class="ot">&lt;-</span> <span class="fu">subset</span>(mugsi_tidy, patient_location <span class="sc">==</span> <span class="st">"All cases"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mugsi_location, <span class="fu">aes</span>(<span class="at">x=</span>YearName, <span class="at">y=</span>case_rates, <span class="at">color=</span>Organism, <span class="at">group=</span>Organism)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span><span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Case Rates per 100,000 population"</span>, <span class="at">x=</span><span class="st">"Year"</span>, <span class="at">title =</span> <span class="st">"Annual CRAB Rates by Patient Location"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="dataanalysis_exercise_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
 
 </section>

@@ -113,3 +113,42 @@ Some potential analytic ideas:
 Look at trends in case rates and death rates for each year for each pathogen group.
 
 Look to see if CRAB trends are similar to CRE trends in specific settings.
+
+### This section is added by Christian Okitondo 
+
+### Loading the RData file of the cleaned data
+```{r}
+#Path to data. Note the use of the here() package and not absolute paths
+load(here::here("Data_Exercise","Data","MUGSI_tidy.RData"))
+```
+
+
+### Checking to see if data frames show up as in the workspace
+```{r}
+ls()
+```
+
+
+```{r}
+# Get a glimpse of data
+glimpse(mugsi_tidy)
+```
+
+
+### Trends of CRAB rates over time by patient location
+```{r}
+mugsi_crab <- subset(mugsi_tidy, Organism=="CRAB")
+
+ggplot(mugsi_crab, aes(x=YearName, y=case_rates, color=patient_location, group=patient_location)) + geom_point() + geom_line() +labs(y="Case Rates per 100,000 population", x="Year", title = "Annual CRAB Rates by Patient Location")
+```
+
+### Trends of the CRE and CRAB rates by all cases (sum of the four subset patient locations)
+```{r}
+
+# Creating a subset of the data indicating patient location is all cases.
+mugsi_location <- subset(mugsi_tidy, patient_location == "All cases")
+
+ggplot(mugsi_location, aes(x=YearName, y=case_rates, color=Organism, group=Organism)) + geom_point() + geom_line() +labs(y="Case Rates per 100,000 population", x="Year", title = "Annual CRAB Rates by Patient Location")
+                         
+
+```

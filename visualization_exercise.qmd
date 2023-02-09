@@ -5,4 +5,63 @@ output:
     toc: FALSE
 ---
 
-Placeholder file for the future visualization exercise.
+# Inspiration
+
+For inspiration I chose this chart on fivethirtyeight
+
+![](https://fivethirtyeight.com/wp-content/uploads/2021/08/FUTURE-OF-WORK-3@2x.png){alt="" width="408"}
+
+I accessed it from this [website here.](https://fivethirtyeight.com/features/why-post-pandemic-offices-could-be-whiter-and-more-male/)
+
+## Loading the data
+
+I manually typed the data into a csv file. First, we'll load the data and some packages
+
+```{r}
+
+library(readr)
+Visualization_Data <- read_csv("Visualization Data.csv")
+
+
+library(tidyverse)
+library(scales)
+
+view(Visualization_Data)
+
+```
+
+## Creating horizontal bar chart
+
+```{r}
+
+view(Visualization_Data)
+
+p<-ggplot(data=Visualization_Data, aes(x=Gender, y=Percent, fill=Response)) +
+  geom_bar(stat="identity") + coord_flip() +facet_grid(Question ~ .) +
+  labs(title="Parents feel more productive and focused at home", subtitle="Share of global knowledge workers with children who said various aspects of their work were better or worse when working remotely or in-office, by gender.", caption="Based on a survey of 10,420 respondents classified as 'knowledge workers'- or anyone who handles information for a living- and who work full-time, between April 26, and May 6, 2021.") 
+
+
+p                        
+
+
+
+```
+
+##Lets change the colors and resort the data to fix.
+
+```{r}
+
+
+#Lets add the caption 
+library(shadowtext)
+
+
+p + geom_shadowtext(data=subset(Visualization_Data, Response=="Same" & Gender=="Male" & Question=="Ability to focus on work"),aes(y = Percent, x = Gender, label="No Change"), hjust=0, nudge_x=0.1,color="black",bg.colour="white", size=3)
+
+
+
+
+
+```
+
+Getting there. Still more to do! 

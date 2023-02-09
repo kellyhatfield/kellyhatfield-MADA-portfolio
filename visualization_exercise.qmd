@@ -46,27 +46,22 @@ p
 
 ```
 
-##Lets change the colors and resort the data to fix.
+## ##Lets change the colors and play around with those titles and axes
 
 ```{r}
 
 
 #Lets add the caption 
 library(shadowtext)
-
-
 p2 <- p + geom_shadowtext(data=subset(Visualization_Data, Response=="Same" & Gender=="Male" & Question=="Ability to focus on work"),aes(y = Percent, x = Gender, label="No Change"), hjust=0, nudge_x=0.1,color="black",bg.colour="white", size=3) +   scale_fill_manual(values=c("orchid3",
                              "white",
-                             "darkgreen")) + theme(axis.title.x=element_blank(), axis.title.y=element_blank(), plot.title=element_text(hjust=-0.2), plot.caption=element_text(hjust = 0.2), axis.text.y=element_blank(), axis.ticks.y=element_blank())
+                             "darkgreen")) + theme(axis.title.x=element_blank(), axis.title.y=element_blank(), plot.title=element_text(hjust=-0.2), plot.subtitle=element_text(hjust=-0.2),  plot.caption=element_text(hjust = -0.2), axis.text.x=element_blank(), axis.ticks.x=element_blank(), axis.ticks.y=element_blank())
 
 
 p2
 
-
 ```
 
+## ##Not bad...
 
-##Not bad...
-
-
-Getting there. Still more to do! How to get those pesky titles on top?? 
+Getting there. Still more to do! How to get those pesky titles on top?? And need to add some value captions... Yikes, this one looked simple but its got a lot! And YIKES those titles, subtitles, and captions are not aligned.

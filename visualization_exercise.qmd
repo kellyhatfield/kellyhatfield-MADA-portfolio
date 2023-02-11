@@ -28,6 +28,8 @@ library(scales)
 
 view(Visualization_Data)
 
+Visualization_Data %>% ggplot()
+
 ```
 
 ## Creating horizontal bar chart
@@ -60,8 +62,21 @@ p2 <- p + geom_shadowtext(data=subset(Visualization_Data, Response=="Same" & Gen
 
 p2
 
+#              
+                     
+
 ```
 
-## ##Not bad...
+## Not bad...
 
-Getting there. Still more to do! How to get those pesky titles on top?? And need to add some value captions... Yikes, this one looked simple but its got a lot! And YIKES those titles, subtitles, and captions are not aligned.
+I really strugged to get the titles on top and add some values to the graph. Per Annabella's suggestion I am going to try to add some percentage labels.
+
+```{r}
+
+p3 <- p2 + geom_text(data=subset(Visualization_Data, Gender=="Female" & Question=="Ability to focus on work"),aes(y = 8, x ="Female", label="15.2% Worse"),size=2, color="white",bg.colour="orchid3") + geom_text(data=subset(Visualization_Data, Gender=="Male" & Question=="Ability to focus on work"),aes(y = 5, x ="Male", label="13.8%"),size=2, color="white",bg.colour="orchid3") + geom_text(data=subset(Visualization_Data, Gender=="Female" & Question=="Productivity at Work"),aes(y = 5, x = "Female", label="15.6%"),size=2, color="white",bg.colour="orchid3") + geom_text(data=subset(Visualization_Data,  Gender=="Male" & Question=="Productivity at Work"),aes(y = 5, x = "Male", label="19.4%"),size=2, color="white",bg.colour="orchid3")+ geom_text(data=subset(Visualization_Data, Gender=="Female" & Question=="Work-Life Balance"),aes(y = 5, x = "Female", label="19.4%"),size=2, color="white",bg.colour="orchid3") + geom_text(data=subset(Visualization_Data, Gender=="Male" & Question=="Work-Life Balance"),aes(y = 5, x = "Male", label="23.1%"),size=2, color="white",bg.colour="orchid3") + geom_text(data=subset(Visualization_Data, Gender=="Female" & Question=="Ability to focus on work"),aes(y = 75, x = "Female", label="64.5% Better"),size=2, color="white",bg.colour="darkgreen") + geom_text(data=subset(Visualization_Data,  Gender=="Male" & Question=="Ability to focus on work"),aes(y = 85, x = "Male", label="69.4%"),size=2, color="white",bg.colour="darkgreen") + geom_text(data=subset(Visualization_Data, Gender=="Female" & Question=="Productivity at Work"),aes(y = 85, x = "Female", label="57.6%"),size=2, color="white",bg.colour="darkgreen") + geom_text(data=subset(Visualization_Data, Gender=="Male" & Question=="Productivity at Work"),aes(y = 85, x = "Male", label="51.5%"),size=2, color="white",bg.colour="darkgreen")+ geom_text(data=subset(Visualization_Data, Gender=="Female" & Question=="Work-Life Balance"),aes(y = 85, x = "Female", label="53.8%"),size=2, color="white",bg.colour="darkgreen") + geom_text(data=subset(Visualization_Data, Gender=="Male" & Question=="Work-Life Balance"),aes(y = 85, x = "Male", label="53.0%"),size=2, color="white",bg.colour="darkgreen")
+
+p3
+
+
+
+```

@@ -20,6 +20,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -144,10 +207,133 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Placeholder file for the future Tidy Tuesday exercise.</p>
-<p>Test.</p>
+<section id="tidy-tuesday" class="level1">
+<h1>Tidy Tuesday:</h1>
+<p>The data this week comes from&nbsp;<a href="https://hollywoodagegap.com/">Hollywood Age Gap</a>&nbsp;via&nbsp;<a href="https://www.data-is-plural.com/archive/2018-02-07-edition/">Data Is Plural</a>.</p>
+</section>
+<section id="data-wrangling-and-explorations" class="level1">
+<h1>Data Wrangling and Explorations</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.1      ✔ stringr 1.5.0 
+✔ readr   2.1.3      ✔ forcats 0.5.2 
+✔ purrr   1.0.0      
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+</div>
+</div>
+<p>I wanted to make some new variables to assess the relationship types (man/man, woman/woman, or man/woman) and in the case of a man/woman relationship: who is older - the man or woman.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>movies<span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"movies.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 1155 Columns: 12
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (7): Movie_Name, Director, Actor_1_Name, Actor_1_Gender, Actor_2_Name, ...
+dbl  (4): Release_Year, Age_Difference, Actor_1_Age, Actor_2_Age
+date (1): Actor_1_Birthdate
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>movies2 <span class="ot">&lt;-</span> <span class="fu">mutate</span>(movies, <span class="at">couple_type =</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">ifelse</span>(Actor_1_Gender <span class="sc">==</span><span class="st">'man'</span> <span class="sc">&amp;</span> Actor_2_Gender <span class="sc">==</span> <span class="st">'woman'</span> , <span class="st">"Man and Woman"</span>, </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">ifelse</span> (Actor_1_Gender <span class="sc">==</span> <span class="st">'woman'</span> <span class="sc">&amp;</span> Actor_2_Gender <span class="sc">==</span> <span class="st">'man'</span>,<span class="st">"Man and Woman"</span>, </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">ifelse</span> (Actor_1_Gender <span class="sc">==</span><span class="st">'man'</span> <span class="sc">&amp;</span> Actor_2_Gender <span class="sc">==</span> <span class="st">'man'</span>,<span class="st">"Man and Man"</span>, </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                                           <span class="fu">ifelse</span> (Actor_1_Gender <span class="sc">==</span><span class="st">'woman'</span> <span class="sc">&amp;</span> Actor_2_Gender <span class="sc">==</span> <span class="st">'woman'</span>,<span class="st">"Woman and Woman"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"ERROR"</span>))))) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">older =</span> </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>            <span class="fu">ifelse</span>(couple_type <span class="sc">!=</span> <span class="st">'Man and Woman'</span>, <span class="st">'Same Sex Couple'</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>               <span class="fu">ifelse</span> (Actor_1_Age <span class="sc">&gt;</span> Actor_2_Age <span class="sc">&amp;</span> Actor_1_Gender <span class="sc">==</span><span class="st">'man'</span>, <span class="st">"Man"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                <span class="fu">ifelse</span> (Actor_1_Age <span class="sc">&gt;</span> Actor_2_Age <span class="sc">&amp;</span> Actor_1_Gender <span class="sc">==</span><span class="st">'woman'</span>, <span class="st">"Woman"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                <span class="fu">ifelse</span> (Actor_2_Age <span class="sc">&gt;</span> Actor_1_Age <span class="sc">&amp;</span> Actor_2_Gender <span class="sc">==</span> <span class="st">'man'</span>, <span class="st">'Man'</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">ifelse</span> (Actor_2_Age <span class="sc">&gt;</span> Actor_1_Age <span class="sc">&amp;</span> Actor_2_Gender <span class="sc">==</span> <span class="st">'woman'</span>, <span class="st">"Woman"</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">"Same Age"</span>)))))) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Age_Man =</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span> (Actor_1_Gender <span class="sc">==</span> <span class="st">'man'</span>, Actor_1_Age, </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>          <span class="fu">ifelse</span> (Actor_2_Gender <span class="sc">==</span><span class="st">'man'</span>, Actor_2_Age, <span class="cn">NA</span>)))<span class="sc">%&gt;%</span> </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Age_Woman =</span><span class="fu">ifelse</span> (Actor_1_Gender <span class="sc">==</span> <span class="st">'woman'</span>, Actor_1_Age, </span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ifelse</span> (Actor_2_Gender <span class="sc">==</span><span class="st">'woman'</span>, Actor_2_Age, <span class="cn">NA</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+
+</div>
+<p>Next I wanted to look at the average age of the men and women in the movies, and how much older on average men and women are than their costar.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(movies2<span class="sc">$</span>Age_Man, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 39.72203</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(movies2<span class="sc">$</span>Age_Woman, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 31.18985</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>movies2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(older) <span class="sc">%&gt;%</span> <span class="fu">summarise_at</span>(<span class="fu">vars</span>(Age_Difference), <span class="fu">list</span>(<span class="at">name=</span>mean))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  older            name
+  &lt;chr&gt;           &lt;dbl&gt;
+1 Man             11.7 
+2 Same Age         0   
+3 Same Sex Couple 13.3 
+4 Woman            5.50</code></pre>
+</div>
+</div>
+<section id="what-we-found-was" class="level2">
+<h2 class="anchored" data-anchor-id="what-we-found-was">What we found was…</h2>
+<ul>
+<li><p>Men are the older partner in nearly 80% of movies (917 out of 1,132 movies with a man/woman relationship.</p></li>
+<li><p>The average age difference when Men are older is men is 11.7 years</p>
+<ul>
+<li>This is much higher than the average age difference of 5.5 years when women are older</li>
+</ul>
+<h1 id="lets-make-some-plots">Let’s Make Some Plots</h1></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>scatter_1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>movies2)<span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>Release_Year, <span class="at">y=</span>Age_Difference, <span class="at">color=</span>older), <span class="at">shape =</span> <span class="dv">16</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"gray"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                                              <span class="st">"orange"</span>, <span class="st">"magenta"</span>)) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Average Age differences in movie relationships have</span><span class="sc">\n</span><span class="st"> slightly declined since the 1940s"</span>, </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="at">subtitle=</span><span class="st">"Stratified by Relationship Type"</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="at">x =</span> <span class="st">"Movie Release Year"</span>, <span class="at">y =</span> <span class="st">"Age Difference"</span>, <span class="at">legend=</span><span class="st">"Who's Older?"</span>) <span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x=</span>Release_Year, <span class="at">y=</span>Age_Difference), </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                        <span class="at">method=</span>lm)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>scatter_1 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="tidytuesday_exercise_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtext)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>movies_sub <span class="ot">&lt;-</span> <span class="fu">subset</span>(movies2, older <span class="sc">!=</span> <span class="st">'Same Sex Couple'</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>scatter_2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>movies_sub, <span class="fu">aes</span>(<span class="at">x=</span>Age_Woman, <span class="at">y=</span>Age_Man, <span class="at">color=</span>older), </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">16</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"gray"</span>, <span class="st">"magenta"</span>)) <span class="sc">+</span> </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Age Gaps in Man-Woman Relationships in Movies"</span>, </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">subtitle=</span><span class="st">"In 81% of Films, Men are older"</span>, <span class="at">y=</span> <span class="st">"Man's Age"</span>, <span class="at">x=</span> <span class="st">"Woman's Age"</span>) <span class="sc">+</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_markdown</span>(), </span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.subtitle=</span><span class="fu">element_markdown</span>(), <span class="at">legend.position=</span><span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>scatter_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="tidytuesday_exercise_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="relationships-in-movies-feature-extensive-age-gaps-and-men-remain-older-than-their-female-love-interests." class="level2">
+<h2 class="anchored" data-anchor-id="relationships-in-movies-feature-extensive-age-gaps-and-men-remain-older-than-their-female-love-interests.">Relationships in movies feature extensive age gaps, and men remain older than their female love interests.</h2>
+<p>However, potential decreases in the age gap have been observed since 1940s. Also, there are some increasing numbers of same sex relationships being displayed in movies in more recent years too.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

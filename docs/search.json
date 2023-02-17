@@ -4,7 +4,7 @@
     "href": "tidytuesday_exercise.html",
     "title": "Tidy Tuesday Exercise",
     "section": "",
-    "text": "Placeholder file for the future Tidy Tuesday exercise.\nTest."
+    "text": "The data this week comes from Hollywood Age Gap via Data Is Plural."
   },
   {
     "objectID": "aboutme.html",
@@ -208,5 +208,26 @@
     "title": "R Data Wrangling Exercise - Kelly Hatfield",
     "section": "Analysis Next Steps",
     "text": "Analysis Next Steps\nIn order to plot the number of CRE cases by patient location over time you will need the following variables:\nYearName : Numeric variable for year Organism: Indicates if CRE or CRAB data case_rates: Numeric variable describing organism rates per 100,000 population patient_location: categorical variable describing patient location (LTAC= long term acute care hospital, and LTCF= long term care facility, All Cases = Sum of all locations\n\nAnalysis notes:\nYou should look at either “All cases” or the four location groupings (hospital inpatient, community, LTCF, and LTAC). “All cases” represents the sum of the four subset locations.\nDeath rates are only available for “All cases” (not stratified by patient location).\n\n\nKelly’s Analysis\nI am going to graph CRE rates over time by location.\n\nmugsi_plot1 <- subset(mugsi_tidy, Organism==\"CRE\")\n\nggplot(mugsi_plot1, aes(x=YearName, y=case_rates, color=patient_location, group=patient_location)) + geom_point() + geom_line() +labs(y=\"Case Rates per 100,000 population\", x=\"Year\", title = \"Annual CRE Rates by Patient Location\")\n\n\n\n\n\n\nYou are up!\nSome potential analytic ideas:\nLook at trends in case rates and death rates for each year for each pathogen group.\nLook to see if CRAB trends are similar to CRE trends in specific settings."
+  },
+  {
+    "objectID": "tidytuesday_exercise.html#what-we-found-was",
+    "href": "tidytuesday_exercise.html#what-we-found-was",
+    "title": "Tidy Tuesday Exercise",
+    "section": "What we found was…",
+    "text": "What we found was…\n\nMen are the older partner in nearly 80% of movies (917 out of 1,132 movies with a man/woman relationship.\nThe average age difference when Men are older is men is 11.7 years\n\nThis is much higher than the average age difference of 5.5 years when women are older\n\nLet’s Make Some Plots\n\n\nscatter_1 <- ggplot(data=movies2)+\n  geom_point(aes(x=Release_Year, y=Age_Difference, color=older), shape = 16,\n             size = 1.5) +\n  theme_classic() + scale_color_manual(values = c(\"blue\", \"gray\",\n                                              \"orange\", \"magenta\")) +\nlabs(title=\"Average Age differences in movie relationships have\\n slightly declined since the 1940s\", \nsubtitle=\"Stratified by Relationship Type\",\nx = \"Movie Release Year\", y = \"Age Difference\", legend=\"Who's Older?\") +\n  geom_smooth(aes(x=Release_Year, y=Age_Difference), \n                        method=lm)\nscatter_1 \n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\nlibrary(ggtext)\nmovies_sub <- subset(movies2, older != 'Same Sex Couple')\nscatter_2 <- ggplot() + \n  geom_point(data=movies_sub, aes(x=Age_Woman, y=Age_Man, color=older), \n             shape = 16, size = 1.5) +\n  scale_color_manual(values = c(\"blue\", \"gray\", \"magenta\")) + \n  labs(title=\"Age Gaps in Man-Woman Relationships in Movies\", \n  subtitle=\"In 81% of Films, Men are older\", y= \"Man's Age\", x= \"Woman's Age\") +\n  theme(plot.title = element_markdown(), \n        plot.subtitle=element_markdown(), legend.position=\"none\") +\n  theme_classic()\nscatter_2"
+  },
+  {
+    "objectID": "tidytuesday_exercise.html#men-are-usually-older-than-their-female-counterparts-even-in-2022.",
+    "href": "tidytuesday_exercise.html#men-are-usually-older-than-their-female-counterparts-even-in-2022.",
+    "title": "Tidy Tuesday Exercise",
+    "section": "Men are usually older than their female counterparts even in 2022.",
+    "text": "Men are usually older than their female counterparts even in 2022.\nHowever, potential decreases in the age gap have been observed since 1940s. Also, there are some increasing numbers of same sex relationships being displayed in movies in more recent years too."
+  },
+  {
+    "objectID": "tidytuesday_exercise.html#relationships-in-movies-feature-extensive-age-gaps-and-men-remain-older-than-their-female-love-interests.",
+    "href": "tidytuesday_exercise.html#relationships-in-movies-feature-extensive-age-gaps-and-men-remain-older-than-their-female-love-interests.",
+    "title": "Tidy Tuesday Exercise",
+    "section": "Relationships in movies feature extensive age gaps, and men remain older than their female love interests.",
+    "text": "Relationships in movies feature extensive age gaps, and men remain older than their female love interests.\nHowever, potential decreases in the age gap have been observed since 1940s. Also, there are some increasing numbers of same sex relationships being displayed in movies in more recent years too."
   }
 ]

@@ -23,7 +23,7 @@ website:
           - text: "Wrangling"
             href: ./fluanalysis/code/wrangling.html
           - text: "Fitting"
-            href: ./fluanalysis/code/fitting
+            href: ./fluanalysis/code/fitting.html
           - text: "Explorations"
             href: ./fluanalysis/code/explorations.html
     right:

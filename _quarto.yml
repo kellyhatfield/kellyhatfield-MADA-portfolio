@@ -21,11 +21,11 @@ website:
       - text: "Flu Analysis"
         menu:
           - text: "Wrangling"
-            href: ./fluanalysis/code/wrangling.html
+            href: ./fluanalysis/Code/wrangling.html
           - text: "Fitting"
-            href: ./fluanalysis/code/fitting.html
+            href: ./fluanalysis/Code/fitting.html
           - text: "Explorations"
-            href: ./fluanalysis/code/explorations.html
+            href: ./fluanalysis/Code/explorations.html
     right:
       - icon: github 
         href: https://kellyhatfield.github.io/kellyhatfield-MADA-portfolio/     

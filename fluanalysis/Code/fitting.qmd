@@ -1,0 +1,77 @@
+---
+title: "fitting"
+author: "Kelly Hatfield"
+editor: visual
+---
+
+```{r}
+library(here)
+library(tidyverse)
+library(tidymodels)
+library(performance)
+
+
+CleanSymp <- readRDS("~/Documents/MADA 2023/kellyhatfield-MADA-portfolio/fluanalysis/Data/CleanSymp.Rds")
+ls(CleanSymp)
+summary(CleanSymp)
+
+```
+
+## Modeling: BodyTemp predicted by RunnyNose
+
+```{r}
+
+
+
+CleanSymp %>% group_by(RunnyNose) %>% summarize(mean=mean(BodyTemp),  q1 = quantile(BodyTemp, 0.25), median = median(BodyTemp),  q3 = quantile(BodyTemp, 0.75))
+
+ggplot(CleanSymp, aes(x = RunnyNose, y = BodyTemp)) + geom_boxplot(fill = "grey92") + geom_point(size = 2, alpha = .15,position = position_jitter(seed = 1, width = .2)) 
+
+lm_mod <- linear_reg()  %>% set_engine("lm")
+fit_lm <- lm_mod%>% 
+  fit(BodyTemp ~ RunnyNose, data = CleanSymp)
+
+
+tidy(fit_lm)
+glance(fit_lm)
+
+```
+
+## Modeling: Nausea predicted by RunnyNose
+
+```{r}
+
+lr_mod <- logistic_reg()
+fit_lr <- lr_mod  %>% 
+  fit(Nausea ~ RunnyNose, data = CleanSymp)
+
+tidy(fit_lr)
+glance(fit_lr)
+```
+
+## Modeling: BodyTemp predicted by all variables
+
+```{r}
+
+lm_mod2 <- linear_reg()  %>% set_engine("lm")
+fit_lm2 <- lm_mod2 %>% 
+  fit(BodyTemp ~ ., data = CleanSymp)
+
+
+tidy(fit_lm2)
+glance(fit_lm2)
+```
+
+## Modeling: Nausea predicted by all variables
+
+```{r}
+
+
+lr_mod2 <- logistic_reg()
+fit_lr2 <- lr_mod2  %>% 
+  fit(Nausea ~ ., data = CleanSymp)
+
+tidy(fit_lr2)
+glance(fit_lr2)
+
+```

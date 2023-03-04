@@ -1,0 +1,59 @@
+---
+title: "wrangling"
+author: "Kelly Hatfield"
+format: html
+editor: visual
+---
+
+## Step 1: Opening Data
+
+Working to find the data
+
+```{r}
+library(here)
+library (tidyverse)
+
+
+raw_data <- readRDS(file = "/Users/kellymccormickhatfield/Documents/MADA 2023/kellyhatfield-MADA-portfolio/fluanalysis/Data/SympAct_Any_Pos.Rda")
+
+```
+
+## Step 2: Wrangling Data
+
+Part 1: Subsetting Data
+
+-   Remove all variables that have *Score* or *Total* or *FluA* or *FluB* or *Dxname* or *Activity* in their name. 
+
+-   Also remove the variable `Unique.Visit`. You should be left with 32 variables coding for presence or absence of some symptom. Only one, temperature, is continuous. A few have multiple categories.
+
+-   Remove any NA observations, there aren't many.
+
+```{r}
+
+#List variable names
+
+ls(raw_data)
+
+raw_data2 <- raw_data %>% select(-contains(c("Score","Total","FluA","FluB","Dxname", "Activity"))) %>% select(-contains(c("Unique.Visit")))
+
+#Contains 32 variables. Yay!
+
+#Remove missing observations
+raw_data3 <- na.omit(raw_data2)
+#Only dropped 5 observations. 
+
+summary(raw_data3)
+
+
+```
+
+## Step 3: Save Wrangled Data as a RDS
+
+```{r}
+here()
+#Need to add some files to here
+
+
+path <- here("fluanalysis","Data","CleanSymp.Rds")
+saveRDS(raw_data3, file = path)
+```

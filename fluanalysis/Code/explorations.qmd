@@ -1,0 +1,93 @@
+---
+title: "exploration"
+editor: visual
+---
+
+## Identify Variables
+
+```{r}
+library(here)
+library(tidyverse)
+library(tidymodels)
+
+CleanSymp <- readRDS("~/Documents/MADA 2023/kellyhatfield-MADA-portfolio/fluanalysis/Data/CleanSymp.Rds")
+ls(CleanSymp)
+summary(CleanSymp)
+
+
+
+```
+
+Things to note:
+
+-   Most variables are categorical Yes/No.
+
+-   Temperature is continuous from 97.2 to 103.1
+
+-   Weakness, CoughIntensity, and Myalgia are scored None, Mild, Moderate, Severe
+
+-   MyalgiaYN, CoughYN2, and WeaknessYN are all Yes/No versions of their corresponding intensity variable (None, Mild, Moderate, Severe)
+
+## Data Explorations: Body Temperature
+
+First, we want to look at temperature with a few key variables. We have selected cough, chest pain and wheeze.
+
+```{r}
+
+CleanSymp %>% summarize(min=min(BodyTemp),mean=mean(BodyTemp), q1 = quantile(BodyTemp, 0.25), median = mean(BodyTemp),  q3 = quantile(BodyTemp, 0.75), max=max(BodyTemp))
+
+CleanSymp %>% group_by(CoughYN2) %>% summarize(mean=mean(BodyTemp), q1 = quantile(BodyTemp, 0.25), median = mean(BodyTemp),  q3 = quantile(BodyTemp, 0.75))
+
+ggplot(CleanSymp, aes(x = CoughYN2, y = BodyTemp)) + geom_boxplot(fill = "grey92") + geom_point(size = 2, alpha = .15,position = position_jitter(seed = 1, width = .2)) 
+
+CleanSymp %>% group_by(ChestPain) %>% summarize(mean=mean(BodyTemp),  q1 = quantile(BodyTemp, 0.25), median = median(BodyTemp),  q3 = quantile(BodyTemp, 0.75))
+
+ggplot(CleanSymp, aes(x = ChestPain, y = BodyTemp)) + geom_boxplot(fill = "grey92") + geom_point(size = 2, alpha = .15,position = position_jitter(seed = 1, width = .2)) 
+
+CleanSymp %>% group_by(Wheeze) %>% summarize(mean=mean(BodyTemp),  q1 = quantile(BodyTemp, 0.25), median = median(BodyTemp),  q3 = quantile(BodyTemp, 0.75))
+ggplot(CleanSymp, aes(x = Wheeze, y = BodyTemp)) + geom_boxplot(fill = "grey92") + geom_point(size = 2, alpha = .15,position = position_jitter(seed = 1, width = .2)) 
+
+```
+
+Since median teperature seems to be slightly elevated for the cough variable, we will look at it further for those varying rankings of the intensity of the cough.
+
+```{r}
+
+CleanSymp %>% group_by(CoughIntensity) %>% summarize(mean=mean(BodyTemp),  q1 = quantile(BodyTemp, 0.25), median = median(BodyTemp),  q3 = quantile(BodyTemp, 0.75))
+
+ggplot(CleanSymp, aes(x = CoughIntensity, y = BodyTemp)) + geom_boxplot(fill = "grey92") + geom_point(size = 2, alpha = .15,position = position_jitter(seed = 1, width = .2)) 
+
+```
+
+The mean body temperature doesn't seem to vary too much by increasing cough intensity group. However, perhaps some increase in median or q3 values.
+
+## Data Explorations: Nausea
+
+For nausea we have decided to assess the relationship of nausea with subjective fever, myalgia, and abdominal pain.
+
+```{r}
+# Variables of interest with Nausea 
+table1 <- table(CleanSymp$Nausea,CleanSymp$SubjectiveFever)
+table1
+prop.table(table1) %>% {.*100} %>% round(2)
+
+table2 <- table(CleanSymp$Nausea,CleanSymp$MyalgiaYN)
+table2
+prop.table(table2) %>% {.*100} %>% round(2)
+table3 <- table(CleanSymp$Nausea,CleanSymp$AbPain)
+table3
+prop.table(table3) %>% {.*100} %>% round(2)
+
+```
+
+## Data Explorations: Nausea and Body Temp
+
+FFinally lets look at the relationships between our two primary variables.
+
+```{r}
+
+CleanSymp %>% group_by(Nausea) %>% summarize(mean=mean(BodyTemp),  q1 = quantile(BodyTemp, 0.25), median = median(BodyTemp),  q3 = quantile(BodyTemp, 0.75))
+
+ggplot(CleanSymp, aes(x = Nausea, y = BodyTemp)) + geom_boxplot(fill = "grey92") + geom_point(size = 2, alpha = .15,position = position_jitter(seed = 1, width = .2)) 
+
+```

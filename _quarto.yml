@@ -18,6 +18,14 @@ website:
             href: ./tidytuesday_exercise.html
           - text: "Data Exercise"
             href: ./dataanalysis_exercise.html
+      - text: "Flu Analysis"
+        menu:
+          - text: "Wrangling"
+            href: ./fluanalysis/code/wrangling.html
+          - text: "Fitting"
+            href: ./fluanalysis/code/fitting
+          - text: "Explorations"
+            href: ./fluanalysis/code/explorations.html
     right:
       - icon: github 
         href: https://kellyhatfield.github.io/kellyhatfield-MADA-portfolio/     

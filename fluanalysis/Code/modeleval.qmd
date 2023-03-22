@@ -1,0 +1,126 @@
+---
+title: "Evaluation"
+author: "Kelly Hatfield"
+editor: visual
+---
+
+## Part 0: Accessing Data
+
+```{r}
+library(here)
+library(tidyverse)
+library(tidymodels)
+library(performance)
+
+#Accessing data
+datalocation <- here::here("fluanalysis","Data", "CleanSymp.Rds")
+fludata <- readRDS(datalocation)
+ls(fludata)
+```
+
+## Part 1: Data Splitting
+
+```{r}
+# Fix the random numbers by setting the seed 
+# This enables the analysis to be reproducible when random numbers are used 
+set.seed(1234)
+# Put 3/4 of the data into the training set 
+data_split <- initial_split(fludata, prop = 3/4)
+
+# Create data frames for the two sets:
+train_data <- training(data_split)
+test_data  <- testing(data_split)
+
+
+```
+
+## Workflow creation and model fitting
+
+#### Create a simple recipe for a logistic model to our categorical outcome of interest.
+
+```{r}
+
+#recipe #1: Nausea predicted by all variables
+flu_recipe <- recipe(Nausea ~ ., data= train_data)
+
+#model: logistic regression using GLM engine
+lr_mod <- logistic_reg() %>% set_engine ("glm")
+
+#workflow: tying together model and recipe
+
+flu_wflow <- workflow() %>% add_model (lr_mod) %>% add_recipe (flu_recipe)
+
+#Printing workflow
+flu_wflow
+
+#Fitting the model to train dataset
+flu_fit <- 
+  flu_wflow %>% 
+  fit(data = train_data)
+
+#Looking at model output;
+flu_fit %>% 
+  extract_fit_parsnip() %>% 
+  tidy()
+```
+
+#### Use the trained workflow to predict with unseen test data
+
+```{r}
+
+#Applying the model to unseen test data
+predict(flu_fit, test_data)
+
+flu_aug <- 
+  augment(flu_fit, test_data)
+
+# The data look like: 
+flu_aug
+
+#Plotting ROC curve;
+flu_aug %>% 
+  roc_curve(truth = Nausea, .pred_No) %>% 
+  autoplot()
+
+#Getting estimates;
+flu_aug %>% 
+  roc_auc(truth = Nausea, .pred_No)
+```
+
+## Alternative Model
+
+```{r}
+
+#New recipe: only predictor is RunnyNose; 
+flu_recipe2 <- recipe(Nausea ~ RunnyNose, data= train_data)
+
+
+
+#New workflow
+
+flu_wflow2 <- workflow() %>% add_model (lr_mod) %>% add_recipe (flu_recipe2)
+
+#New fit
+flu_fit2 <- 
+  flu_wflow2 %>% 
+  fit(data = train_data)
+
+#Print new fit; 
+flu_fit2 %>% 
+  extract_fit_parsnip() %>% 
+  tidy()
+
+#Conduct prediction on test data; 
+predict(flu_fit2, test_data)
+
+flu_aug2 <- 
+  augment(flu_fit2, test_data)
+
+# Output ROC curves and statistics; 
+flu_aug2 %>% 
+  roc_curve(truth = Nausea, .pred_No) %>% 
+  autoplot()
+
+flu_aug2 %>% 
+  roc_auc(truth = Nausea, .pred_No)
+```

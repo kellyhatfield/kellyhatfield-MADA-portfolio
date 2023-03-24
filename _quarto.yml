@@ -26,6 +26,8 @@ website:
             href: ./fluanalysis/Code/fitting.html
           - text: "Explorations"
             href: ./fluanalysis/Code/explorations.html
+          - text: "Model Evaluation"
+            href: ./fluanalysis/Code/modeleval.html
     right:
       - icon: github 
         href: https://kellyhatfield.github.io/kellyhatfield-MADA-portfolio/     

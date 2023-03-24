@@ -124,3 +124,78 @@ flu_aug2 %>%
 flu_aug2 %>% 
   roc_auc(truth = Nausea, .pred_No)
 ```
+
+## This Section Added by Annabella Hines
+
+```{r}
+#recipe #2: Body Temperature predicted by all variables
+flu_recipe2 <- recipe(BodyTemp ~ ., data= train_data)
+
+#model: linear regression using GLM engine
+ln_mod <- linear_reg() %>% set_engine ("lm")
+
+#workflow: tying together linear model and recipe 2
+
+flu_wflow2 <- workflow() %>% add_model(ln_mod) %>% add_recipe(flu_recipe2)
+
+#Printing workflow
+flu_wflow2
+
+#Fitting the model to train dataset
+flu_fit2 <- 
+  flu_wflow2 %>% 
+  fit(data = train_data)
+
+#Looking at model output;
+flu_fit2 %>% 
+  extract_fit_parsnip() %>% 
+  tidy()
+```
+
+#### Use the trained workflow to predict with unseen test data
+
+```{r}
+#Applying the model to unseen test data
+predict(flu_fit2, test_data)
+
+#augment data
+flu_aug2 <- augment(flu_fit2, test_data)
+
+#pull body temperatures and predictions
+temps <- flu_aug2 %>% pull(BodyTemp)
+pred <- flu_aug2 %>% pull(.pred)
+
+#run rmse
+rmse_vec(temps, pred)
+```
+
+**Model with only Runny Nose as predictor**
+
+```{r}
+#Recipe for body temperature and runny nose
+flu_recipe_btrn<- recipe(BodyTemp ~ RunnyNose, data=train_data)
+
+#Modified workflow
+flu_btrn_workflow <- workflow() %>% add_model(ln_mod) %>% add_recipe(flu_recipe_btrn)
+
+#Fitting
+flu_btrn_fit<-flu_btrn_workflow %>% fit(data=train_data)
+```
+
+```{r}
+#Check fit characteristics
+flu_btrn_fit %>% extract_fit_parsnip() %>% tidy()
+
+#Predictions
+predict(flu_btrn_fit, test_data)
+
+#Augment data
+btrn_aug<-augment(flu_btrn_fit, test_data) 
+
+#Pull temperatures and predictions
+temps2 <- btrn_aug %>% pull(BodyTemp)
+pred2 <- btrn_aug %>% pull(.pred)
+
+#Run RMSE
+rmse(temps2, pred2)
+```

@@ -28,6 +28,8 @@ website:
             href: ./fluanalysis/Code/explorations.html
           - text: "Model Evaluation"
             href: ./fluanalysis/Code/modeleval.html
+          - text: "Machine Learning"
+            href: ./fluanalysis/Code/machinelearning.html
     right:
       - icon: github 
         href: https://kellyhatfield.github.io/kellyhatfield-MADA-portfolio/     

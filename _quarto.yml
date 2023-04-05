@@ -18,6 +18,8 @@ website:
             href: ./tidytuesday_exercise.html
           - text: "Data Exercise"
             href: ./dataanalysis_exercise.html
+          - text: "Tidy Tuesday Exercise 2"
+            href: ./tidytuesday_exercise2.html
       - text: "Flu Analysis"
         menu:
           - text: "Wrangling"
@@ -32,7 +34,7 @@ website:
             href: ./fluanalysis/Code/machinelearning.html
     right:
       - icon: github 
-        href: https://kellyhatfield.github.io/kellyhatfield-MADA-portfolio/     
+        href: https://github.com/kellyhatfield/kellyhatfield-MADA-portfolio/     
 
 format:
   html:

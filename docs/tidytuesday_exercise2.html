@@ -20,6 +20,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -175,10 +238,463 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="tidy-tuesday-2-to-be-filled" class="level1">
-<h1>Tidy Tuesday 2: To be filled</h1>
+<section id="tidy-tuesday-part-2-week-of-april-11-2023" class="level1">
+<h1>Tidy Tuesday Part 2: Week of April 11, 2023</h1>
+<p>This weeks data is called: <a href="https://osf.io/z2gxn/">US Egg Production Data 2007-2021</a> and comes from <a href="https://thehumaneleague.org/article/E008R01-us-egg-production-data">The Humane League Labs US Egg Production Dataset</a>.</p>
+<section id="accessing-data" class="level2">
+<h2 class="anchored" data-anchor-id="accessing-data">Accessing Data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the Data</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in directly</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>eggproduction  <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-04-11/egg-production.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 220 Columns: 6
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (3): prod_type, prod_process, source
+dbl  (2): n_hens, n_eggs
+date (1): observed_month
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cagefreepercentages <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-04-11/cage-free-percentages.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 96 Columns: 4
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (1): source
+dbl  (2): percent_hens, percent_eggs
+date (1): observed_month
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#get a summary of data</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(eggproduction)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> observed_month        prod_type         prod_process           n_hens         
+ Min.   :2016-07-31   Length:220         Length:220         Min.   : 13500000  
+ 1st Qu.:2017-09-30   Class :character   Class :character   1st Qu.: 17284500  
+ Median :2018-11-15   Mode  :character   Mode  :character   Median : 59939500  
+ Mean   :2018-11-14                                         Mean   :110839873  
+ 3rd Qu.:2019-12-31                                         3rd Qu.:125539250  
+ Max.   :2021-02-28                                         Max.   :341166000  
+     n_eggs             source         
+ Min.   :2.981e+08   Length:220        
+ 1st Qu.:4.240e+08   Class :character  
+ Median :1.155e+09   Mode  :character  
+ Mean   :2.607e+09                     
+ 3rd Qu.:2.963e+09                     
+ Max.   :8.601e+09                     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cagefreepercentages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> observed_month        percent_hens    percent_eggs       source         
+ Min.   :2007-12-31   Min.   : 3.20   Min.   : 9.557   Length:96         
+ 1st Qu.:2017-05-23   1st Qu.:13.46   1st Qu.:14.521   Class :character  
+ Median :2018-11-15   Median :17.30   Median :16.235   Mode  :character  
+ Mean   :2018-05-12   Mean   :17.95   Mean   :17.095                     
+ 3rd Qu.:2020-02-28   3rd Qu.:23.46   3rd Qu.:19.460                     
+ Max.   :2021-02-28   Max.   :29.20   Max.   :24.546                     
+                                      NA's   :42                         </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Add some libraries</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.3.0      ✔ stringr 1.5.0 
+✔ readr   2.1.3      ✔ forcats 0.5.2 
+✔ purrr   1.0.1      
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+</div>
+</div>
+</section>
+<section id="data-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="data-dictionary">Data Dictionary</h2>
+<p>I am copying and pasting the data dictionaries from the Tidy Tuesday github for reference here:</p>
+<section id="egg-production.csv" class="level3">
+<h3 class="anchored" data-anchor-id="egg-production.csv"><code>egg-production.csv</code></h3>
+<table class="table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 6%">
+<col style="width: 85%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>variable</th>
+<th>class</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>observed_month</td>
+<td>double</td>
+<td>Month in which report observations are collected,Dates are recorded in ISO 8601 format YYYY-MM-DD</td>
+</tr>
+<tr class="even">
+<td>prod_type</td>
+<td>character</td>
+<td>type of egg product: hatching, table eggs</td>
+</tr>
+<tr class="odd">
+<td>prod_process</td>
+<td>character</td>
+<td>type of production process and housing: cage-free (organic), cage-free (non-organic), all. The value ‘all’ includes cage-free and conventional housing.</td>
+</tr>
+<tr class="even">
+<td>n_hens</td>
+<td>double</td>
+<td>number of hens produced by hens for a given month-type-process combo</td>
+</tr>
+<tr class="odd">
+<td>n_eggs</td>
+<td>double</td>
+<td>number of eggs producing eggs for a given month-type-process combo</td>
+</tr>
+<tr class="even">
+<td>source</td>
+<td>character</td>
+<td>Original USDA report from which data are sourced. Values correspond to titles of PDF reports. Date of report is included in title.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cage-free-percentages.csv" class="level3">
+<h3 class="anchored" data-anchor-id="cage-free-percentages.csv"><code>cage-free-percentages.csv</code></h3>
+<table class="table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 6%">
+<col style="width: 84%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>variable</th>
+<th>class</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>observed_month</td>
+<td>double</td>
+<td>Month in which report observations are collected,Dates are recorded in ISO 8601 format YYYY-MM-DD</td>
+</tr>
+<tr class="even">
+<td>percent_hens</td>
+<td>double</td>
+<td>observed or computed percentage of cage-free hens relative to all table-egg-laying hens</td>
+</tr>
+<tr class="odd">
+<td>percent_eggs</td>
+<td>double</td>
+<td>computed percentage of cage-free eggs relative to all table eggs,This variable is not available for data sourced from the Egg Markets Overview report</td>
+</tr>
+<tr class="even">
+<td>source</td>
+<td>character</td>
+<td>Original USDA report from which data are sourced. Values correspond to titles of PDF reports. Date of report is included in title.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section"></h3>
+<p><br>
+#Some cleaning</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Separating out hatching and table eggs</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>hatching_eggsnhens <span class="ot">&lt;-</span> <span class="fu">subset</span>(eggproduction, prod_type<span class="sc">==</span><span class="st">'hatching eggs'</span>,<span class="fu">c</span>(observed_month, prod_process, n_eggs, n_hens)) </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>hatching_eggsnhens<span class="sc">$</span>eggsperhen <span class="ot">&lt;-</span> hatching_eggsnhens<span class="sc">$</span>n_eggs <span class="sc">/</span> hatching_eggsnhens<span class="sc">$</span>n_hens</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>hatching_eggsnhens</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 55 × 5
+   observed_month prod_process     n_eggs   n_hens eggsperhen
+   &lt;date&gt;         &lt;chr&gt;             &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+ 1 2016-07-31     all          1147000000 57975000       19.8
+ 2 2016-08-31     all          1142700000 57595000       19.8
+ 3 2016-09-30     all          1093300000 57161000       19.1
+ 4 2016-10-31     all          1126700000 56857000       19.8
+ 5 2016-11-30     all          1096600000 57116000       19.2
+ 6 2016-12-31     all          1132900000 57750000       19.6
+ 7 2017-01-31     all          1123400000 57991000       19.4
+ 8 2017-02-28     all          1014500000 58286000       17.4
+ 9 2017-03-31     all          1128500000 58735000       19.2
+10 2017-04-30     all          1097200000 59072000       18.6
+# … with 45 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>table_eggsnhens <span class="ot">&lt;-</span> <span class="fu">subset</span>(eggproduction, prod_type<span class="sc">==</span><span class="st">'table eggs'</span>,<span class="fu">c</span>(observed_month,prod_process, n_eggs, n_hens)) </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>table_eggsnhens<span class="sc">$</span>eggsperhen <span class="ot">&lt;-</span> table_eggsnhens<span class="sc">$</span>n_eggs <span class="sc">/</span> table_eggsnhens<span class="sc">$</span>n_hens</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>tablehens1<span class="ot">&lt;-</span> <span class="fu">subset</span>(eggproduction, prod_type<span class="sc">==</span><span class="st">'table eggs'</span>,<span class="fu">c</span>(observed_month, prod_process, n_hens))  </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>tablehens2 <span class="ot">&lt;-</span> tablehens1 <span class="sc">%&gt;%</span> <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> prod_process, <span class="at">values_from =</span> n_hens)<span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="st">"all-table-n_hens"</span> <span class="ot">=</span> <span class="st">"all"</span>, <span class="st">"cage-free-organic-table-n_hens"</span> <span class="ot">=</span> <span class="st">"cage-free (organic)"</span>,  <span class="st">"cage-free-non-organic-table-n_hens"</span> <span class="ot">=</span> <span class="st">"cage-free (non-organic)"</span>       )</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>tableeggs1 <span class="ot">&lt;-</span> <span class="fu">subset</span>(eggproduction, prod_type<span class="sc">==</span><span class="st">'table eggs'</span>,<span class="fu">c</span>(observed_month, prod_process, n_eggs))  </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>tableeggs2 <span class="ot">&lt;-</span> tableeggs1 <span class="sc">%&gt;%</span> <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> prod_process, <span class="at">values_from =</span> n_eggs)<span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="st">"n_eggs_all"</span> <span class="ot">=</span> <span class="st">"all"</span>, <span class="st">"n_eggs_cfo"</span> <span class="ot">=</span> <span class="st">"cage-free (organic)"</span>,  <span class="st">"n_eggs_cfno"</span> <span class="ot">=</span> <span class="st">"cage-free (non-organic)"</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span><span class="fu">full_join</span>(hatching_eggsnhens, table_eggsnhens, <span class="at">by =</span> <span class="st">"observed_month"</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>cleandata <span class="ot">&lt;-</span><span class="fu">full_join</span>(combined_data, cagefreepercentages, <span class="at">by =</span> <span class="st">"observed_month"</span>) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="st">"percent all table egg laying hens cage free"</span> <span class="ot">=</span> <span class="st">"percent_hens"</span>, <span class="st">"percent all table eggs organic"</span> <span class="ot">=</span> <span class="st">"percent_eggs"</span>)                                                               </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="data-explorations" class="level2">
+<h2 class="anchored" data-anchor-id="data-explorations">Data Explorations</h2>
+<section id="lets-look-at-table-hatching-eggs-and-hens-over-time" class="level4">
+<h4 class="anchored" data-anchor-id="lets-look-at-table-hatching-eggs-and-hens-over-time">Lets look at table hatching eggs and hens over time</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hatching_eggsnhens, <span class="fu">aes</span>(<span class="at">x=</span>observed_month, <span class="at">y=</span>eggsperhen, <span class="at">color=</span><span class="st">"pink"</span>)) <span class="sc">+</span><span class="fu">geom_path</span>() <span class="sc">+</span><span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="tidytuesday_exercise2_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>It appears certain months have low egg production</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#format as month</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>hatching_eggsnhens<span class="sc">$</span>month <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">as.Date</span>(hatching_eggsnhens<span class="sc">$</span>observed_month, <span class="at">format=</span><span class="st">"%d/%m/%Y"</span>),<span class="st">"%m"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hatching_eggsnhens, <span class="fu">aes</span>(<span class="at">x =</span>month , <span class="at">y =</span> eggsperhen)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"grey92"</span>) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> .<span class="dv">15</span>,<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">seed =</span> <span class="dv">1</span>, <span class="at">width =</span> .<span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="tidytuesday_exercise2_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Looks like something is weird in February: the median # of eggs per month is closer to 17, compared to &gt;18 in all other months. Maybe this is due to an increased desire for more table eggs in those months.</p>
+<p>Maybe we’ll use this in our model. But lets also explore some table egg information.</p>
+</section>
+<section id="lets-look-at-the-number-of-table-eggs-per-hen-over-time" class="level4">
+<h4 class="anchored" data-anchor-id="lets-look-at-the-number-of-table-eggs-per-hen-over-time">Lets look at the number of table eggs per hen over time</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>table_eggsnhensall <span class="ot">&lt;-</span><span class="fu">subset</span>(table_eggsnhens,prod_process<span class="sc">==</span><span class="st">'all'</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(table_eggsnhensall, <span class="fu">aes</span>(<span class="at">x=</span>observed_month, <span class="at">y=</span>eggsperhen, <span class="at">color=</span><span class="st">"pink"</span>)) <span class="sc">+</span><span class="fu">geom_path</span>() <span class="sc">+</span><span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="tidytuesday_exercise2_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#format as month</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>table_eggsnhensall<span class="sc">$</span>month <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">as.Date</span>(table_eggsnhensall<span class="sc">$</span>observed_month, <span class="at">format=</span><span class="st">"%d/%m/%Y"</span>),<span class="st">"%m"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(table_eggsnhensall, <span class="fu">aes</span>(<span class="at">x =</span>month , <span class="at">y =</span> eggsperhen)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"grey92"</span>) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> .<span class="dv">15</span>,<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">seed =</span> <span class="dv">1</span>, <span class="at">width =</span> .<span class="dv">2</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="tidytuesday_exercise2_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>THe number of eggs per hen for table eggs is also lower in February! Strange. Its also interesting to note that the number of eggs per hen is much higher for table eggs than hatching eggs!</p>
+</section>
+<section id="lets-also-look-at-the-number-of-table-eggs-in-total-over-time" class="level4">
+<h4 class="anchored" data-anchor-id="lets-also-look-at-the-number-of-table-eggs-in-total-over-time">Lets also look at the number of table eggs in total over time</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tableeggs1, <span class="fu">aes</span>(<span class="at">x=</span>observed_month, <span class="at">y=</span>n_eggs, </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">group=</span>prod_process, <span class="at">color=</span>prod_process)) <span class="sc">+</span><span class="fu">geom_path</span>() <span class="sc">+</span><span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="tidytuesday_exercise2_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Some key take aways:</p>
+<ol type="1">
+<li><p>Interestingly, looks like all table eggs was on an upward trend… until 2020.</p></li>
+<li><p>Cage free non-organic eggs seem to be increasing production faster than organic eggs</p></li>
+</ol>
+<p>Some potential analyses:</p>
+<ol type="1">
+<li><p>Potential analysis: ITS model looking at linear trend in egg production until March 2020 (start of COVID-19 pandemic)</p></li>
+<li><p>Difference in Difference model looking at slope of organic versus non-organic eggs</p></li>
+</ol>
+<p>Lets look at a pre COVID-19 and post-COVID-19</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Add covid indicator for any month in March 2020 forward</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>tableeggs2<span class="sc">$</span>cdate <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-02-28"</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>tableeggs2<span class="sc">$</span>covid_ind <span class="ot">=</span> <span class="fu">ifelse</span>(tableeggs2<span class="sc">$</span>observed_month<span class="sc">&gt;</span>tableeggs2<span class="sc">$</span>cdate,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>tableeggs2<span class="sc">$</span>n_eggs_all_m <span class="ot">&lt;-</span> tableeggs2<span class="sc">$</span>n_eggs_all<span class="sc">/</span><span class="dv">1000000</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>tableeggs2<span class="sc">$</span>mindate <span class="ot">=</span> <span class="fu">min</span>(tableeggs2<span class="sc">$</span>observed_month)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>tableeggs2<span class="sc">$</span>daysmodel <span class="ot">=</span> <span class="fu">as.numeric</span> (tableeggs2<span class="sc">$</span>observed_month<span class="sc">-</span>tableeggs2<span class="sc">$</span>mindate)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>tableeggs2<span class="sc">$</span>interaction <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(tableeggs2<span class="sc">$</span>observed_month <span class="sc">&gt;</span> tableeggs2<span class="sc">$</span>cdate,tableeggs2<span class="sc">$</span>daysmodel,<span class="dv">0</span>)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Plotting interrupted time series model</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tableeggs2, <span class="fu">aes</span>(<span class="at">x=</span>observed_month, <span class="at">y=</span>n_eggs_all_m, </span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>                      <span class="at">group=</span><span class="fu">factor</span>(covid_ind),</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>                      <span class="at">color=</span><span class="fu">factor</span>(covid_ind))) <span class="sc">+</span><span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> tableeggs2<span class="sc">$</span>cdate, <span class="at">linetype=</span><span class="st">"dashed"</span>, </span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">"gray2"</span>, <span class="at">linewidth=</span><span class="dv">1</span>)<span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>, <span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Plot of table eggs produced over time"</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"Date"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Number of eggs (in millions)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 rows containing non-finite values (`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 rows containing missing values (`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="tidytuesday_exercise2_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="model-approach" class="level2">
+<h2 class="anchored" data-anchor-id="model-approach">Model approach</h2>
+<section id="question-was-there-a-change-in-egg-production-related-to-the-covid-19-pandemic" class="level4">
+<h4 class="anchored" data-anchor-id="question-was-there-a-change-in-egg-production-related-to-the-covid-19-pandemic">Question: Was there a change in egg production related to the COVID-19 pandemic?</h4>
+<p>We are going to take an interrupted time series approach to understand if the linear trend in egg production changes beginning in March 2020, at the start of COVID-19 pandemic.</p>
+</section>
+<section id="here-are-my-steps" class="level4">
+<h4 class="anchored" data-anchor-id="here-are-my-steps">Here are my steps:</h4>
+<ol type="1">
+<li><p>Data cleaning for the model: See above.</p></li>
+<li><p>Assign 70% of data to training and 30% to test (make assignments by COVID_ind status so we have the same amount of data pre-post intervention)</p></li>
+<li><p>Calculate linear regression with the following covariates: observed_month(month in time series), covid_ind (a 0/1 indicator variable for if in teh COVID-19 time period), and an interaction between covid_ind and observed_mont</p></li>
+<li><p>Interpretation will be as follows:</p>
+<ol type="1">
+<li><p>Parameter (observed_month): Slope (Trend) before the pandemic</p></li>
+<li><p>Parameter estimate (COVID_IND): Immediate change in egg production at start of pandemic</p></li>
+<li><p>Parameter estimate (interaction term): Change in slope (trend) during the pandemic</p></li>
+</ol></li>
+<li><p><em>Repeat model on test data to see if interpretation of parameter estimates are similar</em></p></li>
+<li><p><strong>Summarize findings</strong></p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Modeling Approach</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ────────────────────────────────────── tidymodels 1.0.0 ──</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>✔ broom        1.0.2     ✔ rsample      1.1.1
+✔ dials        1.1.0     ✔ tune         1.0.1
+✔ infer        1.0.4     ✔ workflows    1.1.2
+✔ modeldata    1.0.1     ✔ workflowsets 1.0.0
+✔ parsnip      1.0.3     ✔ yardstick    1.1.0
+✔ recipes      1.0.4     </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──
+✖ scales::discard() masks purrr::discard()
+✖ dplyr::filter()   masks stats::filter()
+✖ recipes::fixed()  masks stringr::fixed()
+✖ dplyr::lag()      masks stats::lag()
+✖ yardstick::spec() masks readr::spec()
+✖ recipes::step()   masks stats::step()
+• Search for functions across packages at https://www.tidymodels.org/find/</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'performance'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:yardstick':
+
+    mae, rmse</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">777</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>data_split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(tableeggs2, <span class="at">prop =</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>, <span class="at">strata=</span>covid_ind)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frames for the two sets:</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>train_data <span class="ot">&lt;-</span> <span class="fu">training</span>(data_split)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co">#36 obs</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>test_data  <span class="ot">&lt;-</span> <span class="fu">testing</span>(data_split)</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="co">#20 obs</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>model_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(n_eggs_all_m <span class="sc">~</span> daysmodel <span class="sc">+</span> covid_ind <span class="sc">+</span> interaction, <span class="at">data=</span> train_data)</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="co">#model: linear regression using GLM engine</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>ln_mod <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span> <span class="fu">set_engine</span> (<span class="st">"lm"</span>)</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>wflow <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span> <span class="fu">add_model</span>(ln_mod) <span class="sc">%&gt;%</span> <span class="fu">add_recipe</span>(model_recipe)</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Fitting the model to train dataset</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>model_fit_train <span class="ot">&lt;-</span>  wflow <span class="sc">%&gt;%</span> <span class="fu">fit</span>(<span class="at">data =</span> train_data)</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="co">#Looking at model output;</span></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>model_fit_train <span class="sc">%&gt;%</span> </span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_fit_parsnip</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 5
+  term        estimate std.error statistic  p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept) 7373.       85.1      86.6   1.51e-38
+2 daysmodel      0.749     0.120     6.22  6.55e- 7
+3 covid_ind   -653.     1205.       -0.542 5.92e- 1
+4 interaction    0.180     0.831     0.216 8.30e- 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Applying the model to unseen test data</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model_fit_train, test_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20 × 1
+   .pred
+   &lt;dbl&gt;
+ 1 7419.
+ 2 7464.
+ 3 7601.
+ 4 7646.
+ 5 7738.
+ 6 7761.
+ 7 7965.
+ 8 7988.
+ 9 8011.
+10 8057.
+11 8078.
+12 8147.
+13 8170.
+14 8262.
+15 8307.
+16 7991.
+17 8048.
+18 8133.
+19 8190.
+20 8219.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#augment data</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>aug <span class="ot">&lt;-</span> <span class="fu">augment</span>(model_fit_train, test_data)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co">#pull month and egg prediction</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>observed_daysmodel <span class="ot">&lt;-</span> aug <span class="sc">%&gt;%</span> <span class="fu">pull</span>(daysmodel)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> aug <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.pred)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(aug, <span class="fu">aes</span>(<span class="at">x=</span>.pred, <span class="at">y=</span> n_eggs_all_m, <span class="at">group=</span><span class="fu">factor</span>(covid_ind), <span class="at">color=</span><span class="fu">factor</span>(covid_ind))) <span class="sc">+</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept=</span><span class="dv">0</span>, <span class="at">slope=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">'Predicted Values'</span>, <span class="at">y=</span><span class="st">'Actual Values'</span>, <span class="at">title=</span><span class="st">'Predicted vs. Actual Values'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="tidytuesday_exercise2_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#run rmse</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rmse_vec</span>(observed_daysmodel, pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7053.268</code></pre>
+</div>
+</div>
+</section>
+<section id="summary-of-findings" class="level4">
+<h4 class="anchored" data-anchor-id="summary-of-findings">Summary of findings:</h4>
+<p>From our training dataset we estimate an increase of 0.74 million eggs per day prior to COVID-19. At the start of COVID-19 we saw an immediate decrease of 650 million eggs per day! Then, after COVID-19 we saw an increased trend of 0.18 million additional eggs per day (for a post-COVID-19 trend of 0.92 million more eggs produced each day!!).</p>
+</section>
+<section id="summary-of-our-model-fit" class="level4">
+<h4 class="anchored" data-anchor-id="summary-of-our-model-fit">Summary of our model fit:</h4>
+<p>In our plot of observed versus predicted values for the test data we feel confident that our model predicted well. There was potentially less good prediction in teh COVID-19 era than the pre-COVID-19 era but that is likely due to the small sample of data in that period for the model.</p>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
